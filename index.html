@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #fff5f5, #ffccd5);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* सुंदर ओपन बटन */
+        #openBtn {
+            padding: 20px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #d81b60, #ff4081);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4);
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        #openBtn:hover { transform: scale(1.1); }
+
+        /* वीडियो कंटेनर */
+        #cardContainer {
+            display: none;
+            position: absolute;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        #weddingVideo {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            transform: scale(0);
+            opacity: 0;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .show-card #weddingVideo {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .text-footer {
+            margin-top: 15px;
+            color: #ad1457;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="openBtn" onclick="startInvite()">पधारिये श्रीमान (ओपन करें)</button>
+
+    <div id="cardContainer">
+        <video id="weddingVideo" playsinline loop muted>
+            <source src="shaadi.mp4" type="video/mp4">
+            आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
+        </video>
+        <div class="text-footer">|| शुभ विवाह ||</div>
+    </div>
+
+    <script>
+        function startInvite() {
+            // बटन छुपाएं
+            document.getElementById('openBtn').style.display = 'none';
+            
+            const container = document.getElementById('cardContainer');
+            const video = document.getElementById('weddingVideo');
+            
+            // कंटेनर दिखाएं
+            container.style.display = 'block';
+            
+            // एनीमेशन और वीडियो प्ले
+            setTimeout(() => {
+                container.classList.add('show-card');
+                video.muted = false; // आवाज़ चालू करने की कोशिश
+                video.play().catch(error => {
+                    console.log("Auto-play blocked, playing muted first");
+                    video.muted = true;
+                    video.play();
+                });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
